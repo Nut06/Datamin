@@ -83,7 +83,7 @@ if "form_data" in st.session_state:
 
 def show_prediction_dialog(prediction):
     
-    margin_left, result, margin_right = st.columns([0.5, 17, 0.5])
+    margin_left, result, margin_right = st.columns([0.5, 12, 0.5])
     if prediction == 0.0:
         with result:
             st.markdown(
@@ -104,11 +104,15 @@ def show_prediction_dialog(prediction):
         with result:
             st.markdown(
                 """
-                <div class='flex justify-center items-center mt-10' style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 40px; border-radius: 10px;">
-                    <h1 class='text-5xl font-bold text-center' style='color: #175c7d;'>
-                        <i class="fas fa-heartbeat" style="color: rgba(255, 0, 0, 0.41);"></i>
-                        ผลการตรวจสอบสุขภาพจิต
-                    </h1>
+                <div style="background-color: #e0f7fa; padding: 30px; border-radius: 12px; text-align: center; font-family: 'Prompt', sans-serif; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+                    <i class="fas fa-exclamation-circle fa-3x" style="color: #ff9800; margin-bottom: 10px;"></i>
+                    <h2 style="color: #00796b; font-size: 24px; font-weight: bold;">ผลการทำนาย: อาจมีความเครียดที่เพิ่มขึ้น</h2>
+                    <p style="color: #555; font-size: 18px; line-height: 1.8;">
+                        คุณอาจมีความเครียดเพิ่มขึ้น ควรสังเกตอาการและดูแลสุขภาพจิตเพิ่มเติม<br>
+                        ลองหากิจกรรมที่ช่วยผ่อนคลาย เช่น การออกกำลังกาย <br>การทำสมาธิ หรือการพูดคุยกับเพื่อนและครอบครัว<br>
+                        หากความเครียดไม่ลดลง ควรพิจารณาปรึกษาผู้เชี่ยวชาญด้านสุขภาพจิต <br>เพื่อรับคำแนะนำและการดูแลที่เหมาะสม
+                    </p>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -135,3 +139,17 @@ def loading_forpredict(model):
 
 model = load_model()
 loading_forpredict(model)
+
+st.markdown("""
+            <div class='flex justify-center items-center mt-7 mb-7'>
+            </div>
+            """,
+            unsafe_allow_html=True,
+)
+
+ml, button, mr = st.columns([1, 1, 0.5])
+with button:
+    if st.button("กลับไปหน้าหลัก", use_container_width=False, type="primary"):
+        st.cache_data.clear()
+        st.switch_page("./app.py")
+        
