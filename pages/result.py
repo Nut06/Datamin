@@ -28,11 +28,7 @@ st.markdown(
 
 
 # Load your model
-@st.cache_data
-def load_model():
-    model = CatBoostClassifier()
-    model.load_model("./model/catboost_model.cbm")
-    return model
+
 
 # Top feature
 # ['days_indoors' 'changes_habits' 'mood_swings' 'mental_health_history'
@@ -137,8 +133,10 @@ def loading_forpredict(model):
     show_prediction_dialog(prediction)
 
 
-model = load_model()
-loading_forpredict(model)
+if 'model' in st.session_state:
+    model = st.session_state.model
+    prediction = model.predict(data)
+    show_prediction_dialog(prediction)
 
 st.markdown("""
             <div class='flex justify-center items-center mt-7 mb-7'>
