@@ -1,4 +1,6 @@
 streamlit
-catboost
+catboost==1.2.2
+scikit-learn
+numpy
 pandas
 # และ package อื่นๆ ที่จำเป็น
