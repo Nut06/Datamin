@@ -1,7 +1,7 @@
 import streamlit as st
-from catboost import CatBoostClassifier
 import pandas as pd
 
+st.set_page_config(page_icon=st.session_state.icon)
 st.markdown(
     """
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">

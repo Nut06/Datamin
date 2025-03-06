@@ -1,5 +1,6 @@
 import streamlit as st
 
+st.set_page_config(page_icon=st.session_state.icon)
 # Add Tailwind CSS and Font Awesome CDN
 st.markdown(
     """

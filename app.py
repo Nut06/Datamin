@@ -1,13 +1,15 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from catboost import CatBoostClassifier
-st.set_page_config(page_icon="🔎")
+import xgboost as xgb
+# from catboost import CatBoostClassifier
 
+st.set_page_config(page_icon="🔎")
+st.session_state.icon = "🔎"
 @st.cache_resource
 def load_model():
-    model = CatBoostClassifier()
-    model.load_model("./model/catboost_model.cbm")
+    model = xgb.XGBClassifier()
+    model.load_model("./model/xgboost_model.bin")
     return model
 
 if "model" not in st.session_state:
