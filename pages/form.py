@@ -102,7 +102,7 @@ with st.container():
             <i class="fas fa-history text-blue-600 mr-2"></i>
             ประวัติสุขภาพจิต
         </h3>
-        <p class='text-gray-700 mb-4'>คุณเคยมีประวัติการรักษาหรือปรึกษาเกี่ยวกับปัญหาสุขภาพจิตหรือไม่?</p>
+        <p class='text-gray-700 mb-4'>คุณเคยมีประวัติการรักษาเกี่ยวกับปัญหาสุขภาพจิตหรือไม่?</p>
     """,
         unsafe_allow_html=True,
     )
