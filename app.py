@@ -101,33 +101,39 @@ with st.container():
     st.markdown(
         """
         <div class="w-full max-w-3xl mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div class="space-y-6">
-                <div class="flex items-center space-x-3 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
-                    <div class="flex-shrink-0">
-                        <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">เพื่อวิเคราะห์ข้อมูล ปัจจัยต่างๆ ที่มีผลต่อการเกิดภาวะความเครียด</p>
-                </div>
-                <div class="flex items-center space-x-4 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
-                    <div class="flex-shrink-0">
-                        <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">เพื่อวิเคราะห์ปัจจัยที่อาจส่งผลทำให้เกิดปัญหาทางสุขภาพจิต</p>
-                </div>
-                <div class="flex items-center space-x-4 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
-                    <div class="flex-shrink-0">
-                        <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
-                    </div>
-                    <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">เพื่อวิเคราะห์แนวโน้มบุคคลที่อาจมีปัญหาด้านสุขภาพจิต</p>
-                </div>
+    <div class="space-y-6">
+        <div class="flex items-center space-x-3 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
+            <div class="flex-shrink-0">
+                <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
             </div>
+            <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">
+                To analyze data and various factors that influence the occurrence of stress.
+            </p>
         </div>
+        <div class="flex items-center space-x-4 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
+            <div class="flex-shrink-0">
+                <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+            </div>
+            <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">
+                To analyze factors that may lead to mental health problems.
+            </p>
+        </div>
+        <div class="flex items-center space-x-4 p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors duration-300">
+            <div class="flex-shrink-0">
+                <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+            </div>
+            <p class="text-black text-2xl font-bold font-['Prompt'] leading-relaxed">
+                To analyze trends of individuals who may be at risk of mental health issues.
+            </p>
+        </div>
+    </div>
+</div>
         """,
         unsafe_allow_html=True,
     )
@@ -139,63 +145,7 @@ with st.container():
     with st.container():
         margin_left, button, margin_right = st.columns([1, 1, 1])
         with button:
-            if st.button("เริ่มทำเเบบทดสอบ",
+            if st.button("Start Assessment",
                  use_container_width=False,
                  type="primary"):
                 st.switch_page("./pages/form.py")
-    
-# if "df" not in st.session_state:
-#     st.session_state.df = pd.DataFrame(np.random.randn(20, 2), columns=["x", "y"])
-
-# st.header("Choose a datapoint color")
-# color = st.color_picker("Color", "#FF0000")
-# st.divider()
-# st.scatter_chart(st.session_state.df, x="x", y="y", color=color)
-
-
-# if "counter" not in st.session_state:
-#     st.session_state.counter = 0
-
-# st.session_state.counter += 1
-
-# st.header(f"This page has run {st.session_state.counter} times.")
-# st.button("Run it again")
-
-# left_column, right_column = st.columns(2)
-# left_column.button("Press me!")
-# with right_column:
-#      selected = st.radio(
-#           "Choose a number",
-#           list(range(1, 4)))
-#      st.write("You selected %d" % selected)
-
-# df = pd.DataFrame({
-#     'first column': [1, 2, 3, 4],
-#     'second column': [10, 20, 30, 40]
-#     })
-
-# option = st.selectbox(
-#     'Which number do you like best?',
-#      df['first column'])
-# 'You selected:', option
-
-# add_slider = st.sidebar.slider(
-#     'Select a range of values',
-#     0.0, 100.0, (25.0, 75.0)
-# )
-
-# df = pd.DataFrame(
-#     np.random.randn(10,20),
-#     columns=('col % d'% i for i in range(20)))
-# st.dataframe(df.style.highlight_max(axis=1), width=1000, height=1000)
-# st.table(df)
-# chart_data = pd.DataFrame(
-#      np.random.randn(20, 3),
-#      columns=['a', 'b', 'c']
-#      )
-
-# st.line_chart(chart_data)
-# x = st.slider('Select a number')
-# st.write(x, 'squared is', x ** 2)
-# st.session_state.name = st.text_input("Enter your name")
-# st.write("Hello", st.session_state.name)

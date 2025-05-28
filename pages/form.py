@@ -1,6 +1,11 @@
 import streamlit as st
 
+# Set page config - Assuming 'icon' is set elsewhere in your session state setup
+if 'icon' not in st.session_state:
+    st.session_state.icon = "🧠" # Default icon if not set
+
 st.set_page_config(page_icon=st.session_state.icon)
+
 # Add Tailwind CSS and Font Awesome CDN
 st.markdown(
     """
@@ -8,39 +13,63 @@ st.markdown(
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .stApp {
-            background-color: #FFF6F1;
+            background-color: #FFF6F1; /* Light beige background */
         }
         /* Override Streamlit's default padding */
         .block-container {
             padding-top: 2rem;
             padding-bottom: 2rem;
         }
+        /* Style for the cards */
+        .form-card {
+            background-color: white;
+            padding: 1.5rem; /* 24px */
+            border-radius: 0.5rem; /* 8px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem; /* 24px */
+        }
+        .form-title {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600; /* semibold */
+            color: #2563EB; /* blue-700 */
+            margin-bottom: 0.75rem; /* 12px */
+        }
+         .form-question {
+            color: #4B5563; /* gray-700 */
+            margin-bottom: 1rem; /* 16px */
+         }
+         .main-title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2.5rem; /* 40px */
+            padding: 1rem; /* 16px */
+         }
+         .main-title {
+            font-size: 2.25rem; /* 36px, text-4xl */
+            font-weight: 700; /* bold */
+            text-align: center;
+            color: #1E40AF; /* blue-800 */
+         }
+         .main-title i {
+             color: rgba(255, 0, 0, 0.41); /* Keep the specific brain icon color */
+             margin-right: 0.75rem; /* Add some space between icon and text */
+         }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Change the background color and some styling using custom CSS
+# Options for Yes/No/Maybe questions
+yes_no_maybe_options = ["No", "Maybe", "Yes"]
+
+# Update the title with Tailwind classes (using custom classes for clarity)
 st.markdown(
     """
-    <style>
-        .stApp {
-            background-color: #FFF6F1;  /* Light gray background */
-        }
-    </style>
-""",
-    unsafe_allow_html=True,
-)
-
-nym_q = ["ไม่", "อาจจะ", "ใช่"]
-
-# Update the title with Tailwind classes
-st.markdown(
-    """
-    <div class='flex justify-center items-center'>
-        <h1 class='text-4xl font-bold text-center text-blue-800 mb-10 p-4'>
-            <i class="fas fa-brain" style="color: rgba(255, 0, 0, 0.41);"></i>
-            เเบบสอบถามสุขภาพจิต
+    <div class='main-title-container'>
+        <h1 class='main-title'>
+            <i class="fas fa-brain"></i>
+            Mental Health Questionnaire
         </h1>
     </div>
     """,
@@ -48,133 +77,168 @@ st.markdown(
 )
 
 with st.container():
-    # 1. ระยะเวลาการอยู่บ้าน
+    # 1. Time Spent at Home
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-home text-blue-600 mr-2"></i>
-                ระยะเวลาการอยู่บ้าน
+                Time Spent at Home
             </h3>
-            <p class='text-gray-700 mb-4'>โดยเฉลี่ยแล้ว ในช่วง 2 เดือนที่ผ่านมา คุณใช้เวลาอยู่บ้านนานแค่ไหน?</p>
+            <p class='form-question'>On average, how much time have you spent at home over the past 2 months?</p>
         """,
         unsafe_allow_html=True,
     )
     days_indoors = st.selectbox(
-        "", ["1-14 วัน", "15-30 วัน", "31-60 วัน", "มากกว่า 2 เดือน", "ออกไปข้างนอกทุกวัน"]
+        "Select time spent at home:", # Added label for accessibility
+        [
+            "1-14 days",
+            "15-30 days",
+            "31-60 days",
+            "More than 2 months",
+            "I go out every day",
+        ],
+        label_visibility="collapsed" # Hide label visually but keep for screen readers
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 2. การเปลี่ยนแปลงพฤติกรรม
+    # 2. Behavioral Changes
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-sync-alt text-blue-600 mr-2"></i>
-                 การเปลี่ยนแปลงพฤติกรรม
+                 	Behavioral Changes
             </h3>
-            <p class='text-gray-700 mb-4'>คุณสังเกตเห็นการเปลี่ยนแปลงในพฤติกรรมการใช้ชีวิตประจำวันของคุณหรือไม่?</p>
+            <p class='form-question'>Have you noticed changes in your daily behavior or routine?</p>
         """,
         unsafe_allow_html=True,
     )
-    changes_habits = st.radio("", nym_q, key="changes_habits")
+    changes_habits = st.radio(
+        "Select behavioral changes:", # Added label
+        yes_no_maybe_options,
+        key="changes_habits",
+        label_visibility="collapsed" # Hide label
+        )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 3. อารมณ์แปรปรวน
+    # 3. Mood Swings
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-chart-line text-blue-600 mr-2"></i>
-                 อารมณ์แปรปรวน
+                 	Mood Swings
             </h3>
-            <p class='text-gray-700 mb-4'>คุณรู้สึกว่าอารมณ์ของคุณเปลี่ยนแปลงบ่อยและรุนแรงแค่ไหน?</p>
+            <p class='form-question'>How often and intensely do you experience mood swings?</p>
         """,
         unsafe_allow_html=True,
     )
-    mood_swings = st.select_slider("", options=["น้อย", "ปานกลาง", "มาก"])
+    mood_swings = st.select_slider(
+        "Select mood swing intensity:", # Added label
+        options=["Low", "Moderate", "High"],
+        label_visibility="collapsed" # Hide label
+        )
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # 4. Mental Health History
     st.markdown(
         """
-    <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-        <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+    <div class='form-card'>
+        <h3 class='form-title'>
             <i class="fas fa-history text-blue-600 mr-2"></i>
-            ประวัติสุขภาพจิต
+            Mental Health History
         </h3>
-        <p class='text-gray-700 mb-4'>คุณเคยมีประวัติการรักษาเกี่ยวกับปัญหาสุขภาพจิตหรือไม่?</p>
+        <p class='form-question'>Do you have a history of treatment for mental health issues?</p>
     """,
         unsafe_allow_html=True,
     )
-    mental_health_history = st.radio("", nym_q, key="mental_health_history")
+    mental_health_history = st.radio(
+        "Select mental health history:", # Added label
+        yes_no_maybe_options,
+        key="mental_health_history",
+        label_visibility="collapsed" # Hide label
+        )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 4. ความอ่อนแอทางสังคม
+    # 5. Social Interaction Difficulty
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-users text-blue-600 mr-2"></i>
-                 ความอ่อนแอทางสังคม
+                 Social Interaction Difficulty
             </h3>
-            <p class='text-gray-700 mb-4'>คุณรู้สึกว่าตัวเองหลีกเลี่ยงการเข้าสังคมหรือรู้สึกอ่อนแอเมื่อต้องเข้าสังคมหรือไม่?</p>
+            <p class='form-question'>Do you tend to avoid social interactions or feel uneasy during them?</p>
         """,
         unsafe_allow_html=True,
     )
-    social_weakness = st.radio("", nym_q, key="social_weakness")
+    social_weakness = st.radio(
+        "Select social interaction difficulty:", # Added label
+        yes_no_maybe_options,
+        key="social_weakness",
+        label_visibility="collapsed" # Hide label
+        )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 5. ความสนใจในงาน
+    # 6. Interest in Work/Activities
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-briefcase text-blue-600 mr-2"></i>
-                 ความสนใจในงาน
+                 Interest in Work/Activities
             </h3>
-            <p class='text-gray-700 mb-4'>คุณยังคงรู้สึกสนใจและมีสมาธิกับงานหรือกิจกรรมที่คุณทำอยู่หรือไม่?</p>
+            <p class='form-question'>Do you still feel interested and focused on your work or the activities you usually do?</p>
         """,
         unsafe_allow_html=True,
     )
-    work_interest = st.radio("", ["ไม่", "อาจจะ", "ใช่"], key="work_interest")
+    work_interest = st.radio(
+        "Select interest in work/activities:", # Added label
+        yes_no_maybe_options, # Use the translated list
+        key="work_interest",
+        label_visibility="collapsed" # Hide label
+        )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 6. ความยากลำบากในการรับมือ
+    # 7. Coping Struggles
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-exclamation-circle text-blue-600 mr-2"></i>
-                 ความยากลำบากในการรับมือ
+                 Coping Struggles
             </h3>
         """,
         unsafe_allow_html=True,
     )
     coping_struggles = st.checkbox(
-        "คุณรู้สึกว่าตัวเองมีปัญหาในการรับมือกับความเครียดหรือปัญหาในชีวิตประจำวันหรือไม่?",
+        "Do you feel you have trouble coping with stress or daily problems?",
         key="coping_struggles",
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 7. อาชีพ
+    # 8. Occupation
     st.markdown(
         """
-        <div class='bg-white p-6 rounded-lg shadow-md mb-6'>
-            <h3 class='text-xl font-semibold text-blue-700 mb-3'>
+        <div class='form-card'>
+            <h3 class='form-title'>
                 <i class="fas fa-id-card text-blue-600 mr-2"></i>
-                 อาชีพ
+                 Occupation
             </h3>
-            <p class='text-gray-700 mb-4'>อาชีพปัจจุบันของคุณคืออะไร?</p>
+            <p class='form-question'>What is your current occupation?</p>
         """,
         unsafe_allow_html=True,
     )
     occupation = st.selectbox(
-        "",
-        ["พนักงานบริษัท", "นักเรียน/นักศึกษา", "ธุรกิจส่วนตัว", "แม่บ้าน", "อื่นๆ"],
+        "Select occupation:", # Added label
+        ["Employee", "Student", "Self-employed", "Homemaker", "Other"], # Translated options
         key="occupation",
+        label_visibility="collapsed" # Hide label
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # Add some space before the button
     st.markdown(
         """
     <div class='mb-8'>
@@ -183,17 +247,24 @@ with st.container():
         unsafe_allow_html=True,
     )
 
-    ml, button, mr = st.columns([1, 1, 0.5])
-    with button:
-        if st.button("ส่งข้อมูล", use_container_width=False, type="primary"):
-            st.session_state.form_data = {
-                "days_indoors": days_indoors,
-                "changes_habits": changes_habits,
-                "mood_swings": mood_swings,
-                "mental_health_history": mental_health_history,
-                "social_weakness": social_weakness,
-                "work_interest": work_interest,
-                "coping_struggles": 1.0 if coping_struggles else 0.0,
-                "occupation_Student": 1.0 if occupation == "นักเรียน/นักศึกษา" else 0.0,
-            }
-            st.switch_page("./pages/result.py")
+    # Submit Button - Centered using columns
+    ml, button_col, mr = st.columns([1, 1, 1]) # Adjust column ratios for centering if needed
+    with button_col:
+        submit_button = st.button("Submit", use_container_width=True, type="primary")
+
+    if submit_button:
+        # Store data in session state
+        st.session_state.form_data = {
+            "days_indoors": days_indoors,
+            "changes_habits": changes_habits,
+            "mood_swings": mood_swings,
+            "mental_health_history": mental_health_history,
+            "social_weakness": social_weakness,
+            "work_interest": work_interest,
+            "coping_struggles": 1.0 if coping_struggles else 0.0,
+            # IMPORTANT: Update the occupation check to use the English value
+            "occupation_Student": 1.0 if occupation == "Student" else 0.0,
+        }
+        # Navigate to the results page
+        st.switch_page("./pages/result.py")
+
